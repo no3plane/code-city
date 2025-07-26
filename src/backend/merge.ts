@@ -1,6 +1,6 @@
-const path = require('path');
+import path from 'path';
 
-const merge = (revisionArr, complexityObj) => {
+const merge = (revisionArr: any[], complexityObj: any) => {
     const normalizePath = (filePath) => {
         let result = filePath;
         if (result.startsWith('./')) {
@@ -37,4 +37,4 @@ const merge = (revisionArr, complexityObj) => {
     return result.sort((a, b) => parseInt(b.revisions) - parseInt(a.revisions));
 };
 
-module.exports = merge;
+export default merge;

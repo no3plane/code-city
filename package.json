@@ -1,19 +1,38 @@
 {
-    "name": "code-city",
-    "version": "1.0.0",
-    "description": "",
-    "main": "main.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-        "cloc": "^2.6.0-cloc",
-        "csv-stringify": "^6.6.0",
-        "fs-extra": "^11.3.0",
-        "iconv-lite": "^0.6.3",
-        "yargs": "^17.7.2"
-    }
+  "name": "code-city",
+  "version": "1.0.0",
+  "description": "代码城市可视化 - 基于 Bun 的现代化项目",
+  "main": "src/backend/main.ts",
+  "scripts": {
+    "analyze": "bun run src/backend/main.ts",
+    "dev:backend": "bun --watch src/backend/main.ts",
+    "dev": "bun --hot src/server.ts",
+    "build": "bun build src/frontend/main.tsx --target browser --outdir public",
+    "test": "bun test",
+    "start": "bun run public/main.js"
+  },
+  "keywords": ["code-analysis", "visualization", "d3", "bun", "react"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cloc": "^2.6.0-cloc",
+    "csv-stringify": "^6.6.0",
+    "iconv-lite": "^0.6.3",
+    "yargs": "^17.7.2",
+    "d3": "^7.8.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/d3": "^7.4.3",
+    "@types/node": "^20.10.0",
+    "@types/yargs": "^17.0.33",
+    "@types/bun": "latest",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0"
+  },
+  "private": true,
+  "peerDependencies": {
+    "typescript": "^5"
+  }
 }

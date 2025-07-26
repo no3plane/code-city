@@ -1,7 +1,7 @@
-const fs = require('fs');
-const readline = require('readline');
-const stringify = require('csv-stringify/sync');
-const iconv = require('iconv-lite');
+import fs from 'fs';
+import readline from 'readline';
+import { stringify } from 'csv-stringify/sync';
+import iconv from 'iconv-lite';
 
 /**
  * 分析 `git log --all --numstat --date=short --pretty=format:"--%h--%ad--%aN" --no-renames`
@@ -350,4 +350,4 @@ const demo = async (filePath) => {
 
 // demo('output/gitlog.txt');
 
-module.exports = Analyzer;
+export default Analyzer;
