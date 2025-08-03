@@ -4,12 +4,16 @@ import { stringify } from 'csv-stringify/sync';
 import iconv from 'iconv-lite';
 
 /**
- * 分析 `git log --all --numstat --date=short --pretty=format:"--%h--%ad--%aN" --no-renames`
- * 生成的 Git Log
+ * 分析 Git Log
  */
-class Analyzer {
+class GitLogAnalyzer {
     constructor(records) {
         this.records = records;
+    }
+
+    // 该类只能分析该 Git 命令生成的日志
+    static getCommandLine() {
+        return `git log --all --numstat --date=short --pretty=format:"--%h--%ad--%aN" --no-renames`;
     }
 
     // 优雅的异步工厂👍
@@ -18,8 +22,8 @@ class Analyzer {
             input: fs.createReadStream(filePath, { encoding: 'utf-8' }),
             crlfDelay: Infinity,
         });
-        const records = await Analyzer._parseLines(rl);
-        return new Analyzer(records);
+        const records = await GitLogAnalyzer._parseLines(rl);
+        return new GitLogAnalyzer(records);
     }
 
     // 优雅的异步工厂👍
@@ -30,8 +34,8 @@ class Analyzer {
                 yield line;
             }
         }
-        const records = await Analyzer._parseLines(gen());
-        return new Analyzer(records);
+        const records = await GitLogAnalyzer._parseLines(gen());
+        return new GitLogAnalyzer(records);
     }
 
     static async _parseLines(lineIterable) {
@@ -324,7 +328,7 @@ class Analyzer {
 }
 
 const demo = async (filePath) => {
-    const analyzer = await Analyzer.fromFile(filePath);
+    const analyzer = await GitLogAnalyzer.fromFile(filePath);
     fs.writeFileSync('output/result.txt', JSON.stringify(analyzer.records, null, 2), 'utf-8');
     const analyzersMap = {
         churn: () => analyzer.churn(),
@@ -350,4 +354,4 @@ const demo = async (filePath) => {
 
 // demo('output/gitlog.txt');
 
-export default Analyzer;
+export default GitLogAnalyzer;

@@ -1,4 +1,5 @@
 import { serve } from 'bun';
+import { resolve } from 'path';
 import indexHtml from './frontend/index.html' assert { type: 'html' };
 
 const PORT = 3000;
@@ -11,7 +12,7 @@ serve({
     },
     routes: {
         '/': indexHtml,
-        '/data': Bun.file('output/result2.csv'),
+        '/data': Bun.file(resolve(__dirname, 'backend/output/result2.csv')),
     },
 });
 
